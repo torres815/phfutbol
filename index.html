@@ -17,17 +17,41 @@ button:focus-visible,input:focus-visible,select:focus-visible,.ph:focus-visible{
 .btn.mp{background:#009EE3;width:100%;padding:.8rem}
 .btn:disabled{opacity:.45;cursor:not-allowed}
 header{background:var(--navy);color:#fff;position:sticky;top:0;z-index:20}
-.nav{max-width:1180px;margin:auto;padding:.7rem 1rem;display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1.2rem}
-.logo{font-weight:800;font-size:1.2rem;letter-spacing:-.02em;display:flex;align-items:center;gap:.5rem;margin-right:auto}
+.nav{max-width:1180px;margin:auto;padding:.7rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+.logo{font-weight:800;font-size:1.2rem;letter-spacing:-.02em;display:flex;align-items:center;gap:.5rem}
 .logo i{width:26px;height:26px;border-radius:50%;border:3px solid var(--bright);position:relative}
 .logo i::after{content:"";position:absolute;inset:5px;background:#fff;border-radius:50%}
-nav{display:flex;gap:.2rem;order:3;width:100%;overflow-x:auto}
-nav button{background:none;color:#B6C4DB;white-space:nowrap}
+
+/* NAV FLOTANTE INFERIOR EN MOBILE */
+nav{
+  display:flex;
+  gap:.2rem;
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:var(--navy);
+  padding:.5rem 1rem;
+  border-top:1px solid rgba(255,255,255,0.1);
+  box-shadow:0 -4px 16px rgba(10,25,47,0.25);
+  justify-content:space-around;
+  z-index:40;
+}
+nav button{background:none;color:#B6C4DB;white-space:nowrap;font-size:.85rem;padding:.5rem .6rem;flex:1;text-align:center}
 nav button.on{background:var(--blue);color:#fff}
+
 .prof{background:#fff1;color:#fff;border:1px solid #fff3;display:flex;gap:.5rem;align-items:center}
 .av{width:24px;height:24px;border-radius:50%;background:var(--bright);display:grid;place-items:center;font-size:.75rem}
-@media(min-width:760px){nav{order:0;width:auto}}
-main{max-width:1180px;margin:auto;padding:1rem}
+
+/* DESKTOP NAV REVERT */
+@media(min-width:760px){
+  nav{position:static;border-top:none;box-shadow:none;padding:0;width:auto;justify-content:flex-start}
+  nav button{flex:initial;font-size:inherit;padding:.6rem 1rem}
+}
+
+main{max-width:1180px;margin:auto;padding:1rem 1rem 4.8rem 1rem}
+@media(min-width:760px){main{padding:1rem}}
+
 .view{display:none}.view.on{display:block}
 h2{margin-bottom:.6rem}
 .hero{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;border-radius:16px;padding:1.6rem 1.2rem;margin-bottom:1.2rem}
@@ -81,19 +105,20 @@ canvas{width:100%;height:250px;display:block}
 .box{background:#fff;border-radius:16px;max-width:420px;width:100%;padding:1.3rem}
 .mpbar{background:#009EE3;color:#fff;border-radius:8px;padding:.6rem .8rem;font-weight:700;margin-bottom:.8rem}
 .row{display:flex;gap:.5rem;margin-top:.8rem}.row button{flex:1}
-.toast{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:.7rem 1rem;border-radius:10px;display:none;z-index:60}
+.toast{position:fixed;bottom:5rem;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:.7rem 1rem;border-radius:10px;display:none;z-index:60}
 </style>
 </head>
 <body>
 <header><div class="nav">
   <div class="logo"><i></i>Enfoque Deportivo</div>
-  <nav id="nav">
-    <button data-v="explore" class="on">Explorar Eventos</button>
-    <button data-v="dash">Panel Fotógrafo</button>
-    <button data-v="orders" id="tabo">Mis Compras</button>
-  </nav>
   <button class="prof" id="login"><span class="av">?</span><span id="lbl">Ingresar</span></button>
 </div></header>
+
+<nav id="nav">
+  <button data-v="explore" class="on">Explorar Eventos</button>
+  <button data-v="dash">Panel Fotógrafo</button>
+  <button data-v="orders" id="tabo">Mis Compras</button>
+</nav>
 
 <main>
 <section class="view on" id="v-explore">
