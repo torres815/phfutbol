@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Enfoque Deportivo · Fotos de eventos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0A192F;--blue:#1E3A8A;--bright:#3B82F6;--bg:#F4F7FB;--line:#E2E8F0;--mute:#64748B;--ok:#16A34A}
+*{box-sizing:border-box;margin:0}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--navy);line-height:1.5}
+button{font:inherit;cursor:pointer;border:0;border-radius:8px;padding:.6rem 1rem;font-weight:600}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--bright);outline-offset:2px}
+.btn{background:var(--bright);color:#fff}.btn:hover{background:#2563EB}
+.btn.ghost{background:#fff;color:var(--blue);border:1px solid var(--line)}
+.btn.mp{background:#009EE3;width:100%;padding:.8rem}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+header{background:var(--navy);color:#fff;position:sticky;top:0;z-index:20}
+.nav{max-width:1180px;margin:auto;padding:.7rem 1rem;display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1.2rem}
+.logo{font-weight:800;font-size:1.2rem;letter-spacing:-.02em;display:flex;align-items:center;gap:.5rem;margin-right:auto}
+.logo i{width:26px;height:26px;border-radius:50%;border:3px solid var(--bright);display:inline-block;position:relative}
+.logo i::after{content:"";position:absolute;inset:5px;background:#fff;border-radius:50%}
+nav{display:flex;gap:.2rem;order:3;width:100%;overflow-x:auto}
+nav button{background:none;color:#B6C4DB;white-space:nowrap}
+nav button.on{background:var(--blue);color:#fff}
+.prof{background:#fff1;color:#fff;border:1px solid #fff3;display:flex;gap:.5rem;align-items:center}
+.av{width:24px;height:24px;border-radius:50%;background:var(--bright);display:grid;place-items:center;font-size:.75rem}
+@media(min-width:760px){nav{order:0;width:auto}}
+main{max-width:1180px;margin:auto;padding:1rem}
+.view{display:none}.view.on{display:block}
+.hero{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;border-radius:16px;padding:1.6rem 1.2rem;margin-bottom:1.2rem}
+.hero h1{font-size:clamp(1.6rem,5vw,2.6rem);letter-spacing:-.03em;line-height:1.1;max-width:18ch}
+.hero p{color:#C7D6F0;margin:.6rem 0 1rem;max-width:50ch}
+.search{display:flex;gap:.5rem;flex-wrap:wrap}
+.search input,.search select,.form input,.form select{padding:.65rem .8rem;border-radius:8px;border:1px solid var(--line);font:inherit;background:#fff;color:var(--navy)}
+.search input{flex:1 1 220px}
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.card{background:#fff;border-radius:14px;overflow:hidden;border:1px solid var(--line);cursor:pointer;text-align:left;padding:0;display:block;width:100%;font-weight:400}
+.card:hover{border-color:var(--bright)}
+.cov{aspect-ratio:16/10;background:linear-gradient(135deg,var(--blue),var(--navy));overflow:hidden}
+.cov img{width:100%;height:100%;object-fit:cover;display:block}
+.card .b{padding:.9rem}.card h3{font-size:1rem;line-height:1.3}
+.tag{display:inline-block;background:#E8EFFD;color:var(--blue);font-size:.75rem;font-weight:600;padding:.15rem .55rem;border-radius:99px;margin-bottom:.4rem}
+.mut{color:var(--mute);font-size:.88rem}
+.back{margin-bottom:.8rem}
+.gal{display:grid;gap:1.2rem}
+@media(min-width:960px){.gal{grid-template-columns:1fr 330px;align-items:start}}
+.photos{display:grid;gap:.7rem;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.ph{position:relative;aspect-ratio:4/3;border-radius:10px;overflow:hidden;border:3px solid transparent;background:var(--blue);padding:0}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ph.sel{border-color:var(--bright)}
+.wm{position:absolute;inset:-40%;transform:rotate(-24deg);display:flex;flex-direction:column;justify-content:space-around;pointer-events:none}
+.wm span{color:#fff;opacity:.6;font-weight:800;font-size:.7rem;white-space:nowrap;text-align:center;text-shadow:0 1px 3px #0008}
+.chk{position:absolute;top:6px;right:6px;width:24px;height:24px;border-radius:50%;background:#fff;color:var(--bright);display:none;place-items:center;font-weight:800}
+.ph.sel .chk{display:grid}
+.ph.own{cursor:default}
+.dl{position:absolute;left:6px;right:6px;bottom:6px;background:var(--ok);color:#fff;font-size:.72rem;padding:.35rem;text-align:center;border-radius:6px;font-weight:600;text-decoration:none}
+.side{background:#fff;border:1px solid var(--line);border-radius:14px;padding:1rem;position:sticky;top:110px}
+.packs{display:grid;gap:.5rem;margin:.8rem 0}
+.pack{border:2px solid var(--line);background:#fff;color:var(--navy);text-align:left;display:flex;justify-content:space-between;gap:.5rem;padding:.65rem .8rem}
+.pack.on{border-color:var(--bright);background:#EFF5FF}
+.tot{display:flex;justify-content:space-between;font-weight:800;font-size:1.3rem;margin:.8rem 0}
+.panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:1rem;margin-bottom:1rem}
+.form{display:grid;gap:.7rem;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));align-items:end}
+.form label{font-size:.82rem;font-weight:600;display:grid;gap:.25rem}
+.kpis{display:grid;gap:.8rem;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-bottom:1rem}
+.kpi{background:var(--navy);color:#fff;border-radius:14px;padding:1rem}
+.kpi small{color:#9FB3D6}.kpi b{display:block;font-size:1.6rem;letter-spacing:-.02em}
+.charts{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+canvas{width:100%;height:260px;display:block}
+.ord{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:space-between;align-items:center;padding:.8rem 0;border-bottom:1px solid var(--line)}
+.st{font-size:.75rem;font-weight:700;padding:.2rem .6rem;border-radius:99px}
+.st.p{background:#FEF3C7;color:#92400E}.st.a{background:#DCFCE7;color:#166534}
+.modal{position:fixed;inset:0;background:#0A192Fcc;display:none;place-items:center;z-index:50;padding:1rem}
+.modal.on{display:grid}
+.box{background:#fff;border-radius:16px;max-width:420px;width:100%;padding:1.3rem}
+.box h2{font-size:1.2rem;margin-bottom:.6rem}
+.mpbar{background:#009EE3;color:#fff;border-radius:8px;padding:.6rem .8rem;font-weight:700;margin-bottom:.8rem}
+.row{display:flex;gap:.5rem;margin-top:.8rem}.row button{flex:1}
+.toast{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:.7rem 1rem;border-radius:10px;display:none;z-index:60}
+@media(prefers-reduced-motion:no-preference){.card,.ph{transition:border-color .15s}}
+</style>
+</head>
+<body>
+<header><div class="nav">
+  <div class="logo"><i></i>Enfoque Deportivo</div>
+  <nav id="nav">
+    <button data-v="explore" class="on">Explorar Eventos</button>
+    <button data-v="dash">Panel Fotógrafo</button>
+    <button data-v="orders">Mis Compras</button>
+  </nav>
+  <button class="prof" id="login"><span class="av">?</span><span id="lbl">Ingresar</span></button>
+</div></header>
+
+<main>
+<section class="view on" id="v-explore">
+  <div id="list">
+    <div class="hero"><h1>Encontrá tus fotos del partido</h1>
+      <p>Buscá el evento, elegí tus fotos y descargalas en HD al instante después de pagar.</p>
+      <div class="search"><input id="q" placeholder="Buscar por nombre de evento" aria-label="Buscar evento"><select id="cat" aria-label="Categoría"><option value="">Todos los deportes</option></select></div></div>
+    <div class="grid" id="events"></div>
+  </div>
+  <div id="detail" hidden>
+    <button class="btn ghost back" id="back">Volver a eventos</button>
+    <h2 id="gt"></h2><p class="mut" id="gs" style="margin-bottom:1rem"></p>
+    <div class="gal">
+      <div class="photos" id="photos"></div>
+      <aside class="side">
+        <b>Elegí cómo comprar</b>
+        <div class="packs" id="packs"></div>
+        <p class="mut" id="hint"></p>
+        <div class="tot"><span>Total</span><span id="total">$0</span></div>
+        <button class="btn mp" id="pay" disabled>Pagar con Mercado Pago</button>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="v-orders"><h2 style="margin-bottom:.8rem">Mis Compras</h2><div class="panel" id="ordl"></div></section>
+
+<section class="view" id="v-dash">
+  <h2 style="margin-bottom:.8rem">Panel del fotógrafo</h2>
+  <div class="kpis">
+    <div class="kpi"><small>Total de ventas</small><b id="k1">0</b></div>
+    <div class="kpi"><small>Ingresos totales</small><b id="k2">$0</b></div>
+    <div class="kpi"><small>Foto más vendida</small><b id="k3" style="font-size:1.1rem">-</b></div>
+  </div>
+  <div class="charts">
+    <div class="panel"><b>Fotos vendidas por evento</b><canvas id="c1"></canvas></div>
+    <div class="panel"><b>Ingresos por evento ($)</b><canvas id="c2"></canvas></div>
+  </div>
+  <div class="panel"><b>Crear evento nuevo</b>
+    <form class="form" id="nf" style="margin-top:.7rem">
+      <label>Título<input id="nt" required placeholder="Ej: Maratón de la ciudad"></label>
+      <label>Deporte<select id="ns"><option>Fútbol</option><option>Running</option><option>Ciclismo</option><option>Pádel</option><option>Básquet</option></select></label>
+      <label>Precio base por foto ($)<input id="np" type="number" min="100" value="1000" required></label>
+      <label>Imágenes<input id="nfiles" type="file" multiple accept="image/*"></label>
+      <button class="btn">Publicar evento</button>
+    </form>
+  </div>
+</section>
+</main>
+
+<div class="modal" id="modal"><div class="box" id="mbox"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const $=s=>document.querySelector(s), money=n=>'$'+n.toLocaleString('es-AR');
+const U=(id,w)=>`https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=70`;
+const IMG={fut:['photo-1431324155629-1a6deb1dec8d','photo-1574629810360-7efbbe195018','photo-1522778119026-d647f0596c20'],
+ run:['photo-1552674605-db6ffd4facb5','photo-1461896836934-ffe607ba8211','photo-1571008887538-b36bb32f4571'],
+ bici:['photo-1517649763962-0c623066013b','photo-1541625602330-2277a4c46182'],
+ pad:['photo-1554068865-24cecd4e34b8','photo-1622279457486-62dcc4a431d6']};
+let events=[
+ {id:1,t:'Partido JVG vs San Buenaventura - 1ra División',sp:'Fútbol',d:'Sáb 24 oct',price:1000,imgs:IMG.fut,n:12,sold:38,rev:61500},
+ {id:2,t:'Duatlón Aniversario 10K',sp:'Running',d:'Dom 18 oct',price:1000,imgs:IMG.run.concat(IMG.bici),n:10,sold:24,rev:35000},
+ {id:3,t:'Torneo Nocturno de Pádel',sp:'Pádel',d:'Vie 30 oct',price:1000,imgs:IMG.pad,n:8,sold:15,rev:22000}];
+let cur=null,sel=new Set(),mode='one',orders=[],bought=new Set(),top={'JVG vs San Buenaventura #4':14,'Duatlón 10K #2':9},nextId=4;
+
+const prices=e=>({one:e.price,p3:Math.round(e.price*2.5),all:e.price*5});
+const photosOf=e=>Array.from({length:e.n},(_,i)=>({id:e.id+'-'+i,e,i,img:e.imgs[i%e.imgs.length]}));
+const total=()=>{if(!cur)return 0;const p=prices(cur);return mode==='one'?sel.size*p.one:mode==='p3'?(sel.size===3?p.p3:0):(sel.size?p.all:0)};
+const toast=m=>{const t=$('#toast');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',2200)};
+
+/* navegación */
+function show(v){document.querySelectorAll('.view').forEach(x=>x.classList.toggle('on',x.id==='v-'+v));
+ document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
+ if(v==='dash')renderDash();if(v==='orders')renderOrders();scrollTo(0,0)}
+$('#nav').onclick=e=>{if(e.target.dataset.v)show(e.target.dataset.v)};
+let logged=false;$('#login').onclick=()=>{logged=!logged;$('#lbl').textContent=logged?'Lucía Fotógrafa':'Ingresar';document.querySelector('.av').textContent=logged?'L':'?'};
+
+/* eventos */
+function renderEvents(){
+ const q=$('#q').value.toLowerCase(),c=$('#cat').value;
+ const cats=[...new Set(events.map(e=>e.sp))];$('#cat').innerHTML='<option value="">Todos los deportes</option>'+cats.map(x=>`<option ${x===c?'selected':''}>${x}</option>`).join('');
+ const l=events.filter(e=>e.t.toLowerCase().includes(q)&&(!c||e.sp===c));
+ $('#events').innerHTML=l.length?l.map(e=>`<button class="card" data-id="${e.id}"><div class="cov"><img src="${U(e.imgs[0],600)}" alt="" loading="lazy" onerror="this.remove()"></div><div class="b"><span class="tag">${e.sp}</span><h3>${e.t}</h3><p class="mut">${e.d} · ${e.n} fotos · desde ${money(e.price)}</p></div></button>`).join(''):'<p class="mut">No hay eventos con ese nombre. Probá con otra búsqueda.</p>'}
+$('#q').oninput=renderEvents;$('#cat').onchange=renderEvents;
+$('#events').onclick=e=>{const c=e.target.closest('.card');if(c)openEvent(+c.dataset.id)};
+$('#back').onclick=()=>{$('#detail').hidden=true;$('#list').hidden=false;cur=null};
+function openEvent(id){cur=events.find(e=>e.id===id);sel=new Set();mode='one';
+ $('#list').hidden=true;$('#detail').hidden=false;$('#gt').textContent=cur.t;$('#gs').textContent=cur.sp+' · '+cur.d;renderGallery();scrollTo(0,0)}
+
+/* galería */
+const WM='<div class="wm">'+'<span>MUESTRA - DERECHOS RESERVADOS</span>'.repeat(6)+'</div>';
+function renderGallery(){
+ const ps=photosOf(cur);
+ $('#photos').innerHTML=ps.map(p=>{const own=bought.has(p.id);
+  return `<div class="ph ${sel.has(p.id)?'sel':''} ${own?'own':''}" ${own?'':`role="button" tabindex="0"`} data-id="${p.id}">
+  <img src="${U(p.img,own?900:380)}" style="object-position:${(p.i*37)%100}% ${(p.i*53)%100}%;transform:scale(${1+(p.i%3)*.12})" alt="Foto ${p.i+1}" loading="lazy" onerror="this.remove()">
+  ${own?`<a class="dl" href="${U(p.img,2400)}" target="_blank" rel="noopener" download>Descargar Foto Original en HD</a>`:WM+'<span class="chk">✓</span>'}</div>`}).join('');
+ const pr=prices(cur);
+ $('#packs').innerHTML=[['one','1 Foto',pr.one],['p3','Pack 3 Fotos',pr.p3],['all','Pack Completo (todas)',pr.all]]
+  .map(([k,n,v])=>`<button class="pack ${mode===k?'on':''}" data-m="${k}"><span>${n}</span><b>${money(v)}</b></button>`).join('');
+ renderTotal()}
+function renderTotal(){const t=total();$('#total').textContent=money(t);
+ $('#hint').textContent=mode==='one'?`Elegidas: ${sel.size}. Cada foto cuesta ${money(prices(cur).one)}.`:mode==='p3'?`Elegí exactamente 3 fotos (${sel.size}/3).`:`Incluye las ${cur.n} fotos del evento.`;
+ $('#pay').disabled=t===0}
+function toggle(id){if(bought.has(id))return;
+ if(sel.has(id))sel.delete(id);else{if(mode==='p3'&&sel.size>=3)return toast('El pack ya tiene 3 fotos');sel.add(id)}
+ renderGallery()}
+$('#photos').onclick=e=>{const p=e.target.closest('.ph');if(p&&!e.target.closest('.dl'))toggle(p.dataset.id)};
+$('#photos').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){const p=e.target.closest('.ph');if(p){e.preventDefault();toggle(p.dataset.id)}}};
+$('#packs').onclick=e=>{const b=e.target.closest('.pack');if(!b)return;mode=b.dataset.m;
+ if(mode==='all')sel=new Set(photosOf(cur).filter(p=>!bought.has(p.id)).map(p=>p.id));
+ else if(mode==='p3')sel=new Set([...sel].slice(0,3));renderGallery()};
+
+/* checkout */
+const modal=h=>{$('#mbox').innerHTML=h;$('#modal').classList.add('on')},close=()=>$('#modal').classList.remove('on');
+let pend=null;
+$('#pay').onclick=()=>{pend={id:'#'+(1000+orders.length+1),ev:cur,ids:[...sel],mode,total:total(),st:'Pendiente'};orders.unshift(pend);
+ modal(`<div class="mpbar">Mercado Pago · Checkout simulado</div><h2>Orden ${pend.id}</h2>
+ <p class="mut">${pend.ev.t}</p><p style="margin:.6rem 0">${pend.ids.length} foto(s) · ${mode==='one'?'Individual':mode==='p3'?'Pack 3':'Pack completo'}</p>
+ <div class="tot"><span>Total a pagar</span><span>${money(pend.total)}</span></div>
+ <p>Estado: <span class="st p">Pendiente</span></p>
+ <div class="row"><button class="btn ghost" id="mc">Cancelar</button><button class="btn" id="mok">Simular Pago Aprobado</button></div>`);
+ $('#mc').onclick=()=>{orders=orders.filter(o=>o!==pend);close()};
+ $('#mok').onclick=approve};
+function approve(){pend.st='Aprobado';pend.ids.forEach(id=>bought.add(id));
+ pend.ev.sold+=pend.ids.length;pend.ev.rev+=pend.total;
+ const k=pend.ev.t.split(' ')[0]+' #'+(+pend.ids[0].split('-')[1]+1);top[k]=(top[k]||0)+1;
+ sel=new Set();modal(`<div class="mpbar" style="background:var(--ok)">Pago aprobado</div><h2>Orden ${pend.id}</h2>
+ <p>Estado: <span class="st a">Aprobado</span></p><p class="mut" style="margin-top:.6rem">Quitamos las marcas de agua. Ya podés descargar tus fotos originales en HD.</p>
+ <div class="row"><button class="btn ghost" id="mg">Ver galería</button><button class="btn" id="mo">Mis Compras</button></div>`);
+ $('#mg').onclick=()=>{close();if(cur)renderGallery()};$('#mo').onclick=()=>{close();show('orders')};
+ if(cur)renderGallery()}
+$('#modal').onclick=e=>{if(e.target.id==='modal'&&!$('#mok'))close()};
+
+/* mis compras */
+function renderOrders(){
+ $('#ordl').innerHTML=orders.length?orders.map(o=>`<div class="ord"><div><b>${o.id} · ${o.ev.t}</b><p class="mut">${o.ids.length} foto(s) · ${money(o.total)}</p></div>
+ <div><span class="st ${o.st==='Aprobado'?'a':'p'}">${o.st}</span> ${o.st==='Aprobado'?o.ids.map(id=>{const i=+id.split('-')[1];return `<a class="btn" style="display:inline-block;margin:.2rem;text-decoration:none;font-size:.8rem" target="_blank" rel="noopener" download href="${U(o.ev.imgs[i%o.ev.imgs.length],2400)}">HD foto ${i+1}</a>`}).join(''):''}</div></div>`).join('')
+ :'<p class="mut">Todavía no compraste fotos. Elegí un evento en Explorar Eventos para empezar.</p>'}
+
+/* dashboard */
+function renderDash(){
+ const sold=events.reduce((a,e)=>a+e.sold,0),rev=events.reduce((a,e)=>a+e.rev,0);
+ $('#k1').textContent=sold;$('#k2').textContent=money(rev);
+ const t=Object.entries(top).sort((a,b)=>b[1]-a[1])[0];$('#k3').textContent=t?`${t[0]} (${t[1]} ventas)`:'-';
+ chart($('#c1'),events.map(e=>e.t.split(' ').slice(0,2).join(' ')),events.map(e=>e.sold),'#3B82F6',v=>v);
+ chart($('#c2'),events.map(e=>e.t.split(' ').slice(0,2).join(' ')),events.map(e=>e.rev),'#1E3A8A',money)}
+function chart(cv,lab,val,col,fmt){
+ const r=devicePixelRatio||1,w=cv.clientWidth,h=cv.clientHeight;cv.width=w*r;cv.height=h*r;
+ const g=cv.getContext('2d');g.scale(r,r);g.clearRect(0,0,w,h);g.font='12px Inter,sans-serif';
+ const max=Math.max(...val,1),pl=10,pb=34,pt=24,bw=Math.min(70,(w-pl*2)/val.length*.6),gap=(w-pl*2)/val.length;
+ g.strokeStyle='#E2E8F0';g.beginPath();g.moveTo(pl,h-pb);g.lineTo(w-pl,h-pb);g.stroke();
+ val.forEach((v,i)=>{const bh=(h-pb-pt)*v/max,x=pl+gap*i+(gap-bw)/2,y=h-pb-bh;
+  g.fillStyle=col;g.beginPath();g.roundRect(x,y,bw,bh,6);g.fill();
+  g.fillStyle='#0A192F';g.textAlign='center';g.fillText(fmt(v),x+bw/2,y-6);
+  g.fillStyle='#64748B';g.fillText(lab[i].slice(0,14),x+bw/2,h-14)})}
+addEventListener('resize',()=>$('#v-dash').classList.contains('on')&&renderDash());
+
+/* nuevo evento */
+$('#nf').onsubmit=e=>{e.preventDefault();
+ const sp=$('#ns').value,pool={Fútbol:IMG.fut,Running:IMG.run,Ciclismo:IMG.bici,Pádel:IMG.pad,Básquet:['photo-1546519638-68e109498ffc']}[sp];
+ const n=Math.max($('#nfiles').files.length,6);
+ events.unshift({id:nextId++,t:$('#nt').value,sp,d:'Nuevo',price:+$('#np').value,imgs:pool,n,sold:0,rev:0});
+ e.target.reset();renderEvents();renderDash();toast('Evento publicado. Ya aparece en Explorar Eventos.')};
+
+renderEvents();
+</script>
+</body>
+</html>
